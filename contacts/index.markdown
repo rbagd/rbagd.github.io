@@ -4,10 +4,10 @@ title: about
 format: markdown
 ---
 
-e-mail: mail@rbagd.eu
+**e-mail**: <a href="mailto:mail@rbagd.eu">mail@rbagd.eu</a>
 
-jabber: rytis@jabber.belnet.be
+**jabber**: <a href="xmpp:rytis@jabber.belnet.be">rytis@jabber.belnet.be</a>
 
-twitter: [@rbagd](http://twitter.com/rbagd)
+**twitter**: [@rbagd](http://twitter.com/rbagd)
 
 Check me out at [github](http://github.com/rbagd) or [bitbucket](http://bitbucket.org/rbagd).
