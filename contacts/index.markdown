@@ -10,4 +10,6 @@ format: markdown
 
 **twitter**: [@rbagd](http://twitter.com/rbagd)
 
+Here is my [PGP public key](pgp.txt).
+
 Check my work at [github](http://github.com/rbagd) or [bitbucket](http://bitbucket.org/rbagd).
