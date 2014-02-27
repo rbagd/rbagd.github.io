@@ -1,4 +1,4 @@
-name: rbagd
+name: rbagd.eu
 markdown: redcarpet
 pygments: true
 permalink: /:year-:month-:day/:title.html
