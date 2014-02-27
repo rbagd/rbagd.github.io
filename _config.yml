@@ -1,4 +1,4 @@
 name: rbagd
 markdown: redcarpet
 pygments: true
-# permalink: /:year-:month-:day/:title.html
+permalink: /:year-:month-:day/:title.html
