@@ -2,3 +2,5 @@ name: rbagd.eu
 markdown: redcarpet
 pygments: true
 permalink: /:year-:month-:day/:title.html
+url: http://rbagd.eu
+description: Personal blog by Rytis
