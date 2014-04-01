@@ -5,7 +5,7 @@ date:   2014-04-01 20:10:39
 categories: r
 ---
 
-Have you ever stared at your computer screen waiting for a simulation to end? Have you ever forgotten to put a variable to track its progress? Mobile world can help you deal with this. Thus, if you have simulations running and want to know when they are finished or you may want updates on the counter which tracks its progress, you can use your phone to check on it while sipping coffee. All you need is `R`, `httr` library (`RCurl` would work as well) and a free account at [Pushbullet](pushbullet). Pushbullet for Android is also free which is cheaper than its competitor. Once you get a free account, you are automatically assigned an API key which you can find in your account settings.
+Have you ever stared at your computer screen waiting for a simulation to end? Have you ever forgotten to put a variable to track its progress? Mobile world can help you deal with this. Thus, if you have simulations running and want to know when they are finished or you may want updates on the counter which tracks its progress, you can use your phone to check on it while sipping coffee. All you need is `R`, `httr` library (`RCurl` would work as well) and a free account at [Pushbullet][pushbullet]. Pushbullet for Android is also free which is cheaper than its competitor. Once you get a free account, you are automatically assigned an API key which you can find in your account settings.
 
 Setting up notifications is painless. After you install the application on your mobile device, you need to find out your device ID. Just replace your API key with the one you are provided and run the following in `R`. 
 
