@@ -25,6 +25,6 @@ POST(api, authenticate("McAG4V8p4izK35439e8SwWOJ822QHdWL", ""),
      body=curl.opts)
 {% endhighlight %}
 
-`POST` command will provide a lot of output by default. Just put `invisible` around it and it goes silent. As the above code is executed, the notification goes through and appears on the phone instantly.
+`POST` command will provide a lot of output by default. Just put `invisible()` around it and it goes silent. As the above code is executed, the notification goes through and appears on the phone instantly.
 
 [pushbullet]: https://www.pushbullet.com/
