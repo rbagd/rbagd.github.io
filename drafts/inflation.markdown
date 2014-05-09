@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Visualizing inflation data with `shiny`"
+title:  Visualizing inflation data with `shiny`
 date:   2014-02-26 16:23:39
 categories: R
 ---
 
-Some time ago I have written a small web application which allows to plot some basic pre-defined graphs using [inflation data for Belgium][inflation]. This post serves as an explanation for the code behind it. The application itself can be found [here][my-app]. In short, it uses `shiny` package for `R` for web deployment and `lattice` for plotting.
+Some time ago I have written a small web application which allows to plot some basic pre-defined graphs using [inflation data for Belgium][inflation]. This post serves as an explanation for the code behind it. The application itself can be found [here][my-app]. In short, it uses `shiny` package for `R` for web deployment and `lattice` for plotting. It will be a little slow to load but should be fast enough afterwards.
 
 For starters, some general remarks about data itself. Raw data includes price indices for many products and goes up to level 4 of UN COICOP statistical classification. Unfortunately, data is provided as a typical stand-alone Excel file and no API or `XML` feed exists for accessing the raw data. In order to be able to update these graphs monthly, I wrote the code accordingly to the current format of the Excel sheet (converted to `csv` for speed purposes). If there happens to be major changes in the Excel file, code will break. On the other hand, I don't expect any big ones in the near future.
 
