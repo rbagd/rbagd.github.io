@@ -5,7 +5,7 @@ date:   2015-03-22 16:23:39
 categories: R
 ---
 
-#### About SDMX
+###### About SDMX
 
 `SDMX` stands for *Statistical Data and Metadata Exchange*. It is becoming a widely used standard for economic and population data providers such as [ECB][ecb-sdmx], [Eurostat][eurostat-sdmx], [OECD][oecd-sdmx] and many others.
 
@@ -24,7 +24,7 @@ Currently, most widely used `SDMX` implementation for economic data is known as 
 
 Simple queries as above are a . However, `M` in `SDMX` stands for metadata and thus additional information on series can also be exchanged in a structured manner via `Data Structure Documents` (DSD). DSD queries can be much simpler. For example, `http://stats.oecd.org/restsdmx/sdmx.ashx/GetDataStructure/GOV_DEBT` requests an `XML` document from OECD describing data in **Government debt** dataset. Analyzing this structure allows to construct more accurate data queries.
 
-#### SDMX and `R`
+###### SDMX and `R`
 
 `R` has got a package `rsdmx` which works especially well with above listed institutions. Just construct or find a valid `SDMX` query, run `readSDMX()` from within `R` and in case your object contains data, `as.data.frame` method for that object is available.
 
