@@ -12,6 +12,7 @@ Currently, most widely used implementation is known as `SDMX-ML̀` where data is
 `R` has got a package `rsdmx` which works especially well with above listed institutions. Just construct or find a valid `SDMX` query, run `readSDMX()` from within `R` and in case your object contains data, `as.data.frame` method for that object is available.
 
 Typically, an `SDMX-ML` query for obtaining data will consist of 4 parts:
+
 * prefix link to the data warehouse of the data provider. Some examples would be:
   * http://sdw-wsrest.ecb.europa.eu/service/data/
   * http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/
