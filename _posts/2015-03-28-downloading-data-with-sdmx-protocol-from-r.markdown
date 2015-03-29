@@ -11,9 +11,9 @@ categories: R
 
 Currently, most widely used `SDMX` implementation for economic data is known as `SDMX-ML̀` where data is exchanged via structured `XML` documents. All providers I have extensively tested implement `SDMX` protocol via `RESTful` API. Queries for data may be of two major types: data itself or description of data (metadata). 
 
-Let's start with data itself. Typically, an `SDMX-ML` URL for obtaining `XML` document with data will consist of 4 parts:
+##### Data
 
-##### Data
+Let's start with data itself. Typically, an `SDMX-ML` URL for obtaining `XML` document with data will consist of 4 parts:
 
 * prefix link to the data warehouse of the data provider. Some examples would be:
   * [ECB](http://sdw-wsrest.ecb.europa.eu/service/data/)
