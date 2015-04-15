@@ -19,6 +19,6 @@ Although a stacked barchart seems to me the most natural way to present inflatio
 
 Any bugs, feature requests and further improvements can be posted at the [dedicated GitHub repo][github].
 
-[my-app]: http://spark.rstudio.com/rytis/inflation
+[my-app]: https://rytis.shinyapps.io/inflation
 [inflation]: http://statbel.fgov.be/fr/statistiques/chiffres/economie/prix_consommation/
 [github]: https://github.com/rbagd/inflation
