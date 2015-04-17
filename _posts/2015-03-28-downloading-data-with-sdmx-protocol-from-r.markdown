@@ -59,7 +59,7 @@ xml_data <- readSDMX(url)
 data <- as.data.frame(xml_data)
 
 library(reshape2)
-dcast(data, date ~ COU+DTYPE, value.var="obsValue")
+dcast(data, obsTime ~ COU+DTYP, value.var="obsValue")
 ```
 
 Dealing with public data has never been as fun. `SDMX` is a great protocol for easily constructing and maintaining public data you are interested in. No more random `Excel` or `csv` files. Amen.
