@@ -9,6 +9,7 @@ I study econometrics at a graduate level in Université catholique de Louvain, B
 I am also a free and open-source software enthousiast.
 
 Some projects that I have been previously or currently working on:
+
 * [Visualizing Belgian inflation data](https://rytis.shinyapps.io/inflation)
 * [Mapping unemployment in the EU](https://github.com/rbagd/eu-unemployment)
 * [`R` package `functionalIV`](https://github.com/rbagd/functionalIV) implementing various estimators for functional linear instrumental models
