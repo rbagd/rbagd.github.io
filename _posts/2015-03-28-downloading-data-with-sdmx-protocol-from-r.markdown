@@ -44,7 +44,7 @@ Most of the work with `SDMX` goes into key construction. Unfortunately, there is
 
 Let's take an example. [This link](http://stats.oecd.org/restsdmx/sdmx.ashx/GetDataStructure/GOV_DEBT) requests an `XML` document from OECD describing data in **Government debt** dataset. Analyzing this structure allows to construct more accurate data queries.
 
-In particular, we are interested in two elements: `CodeLists` and `Dimension`. `Dimension` element explains in what order and how key for queries is constructed while `CodeLists` provides possible values for query elements. In this particular case, `Dimension` elements indicates that a key is constructed as follows: country, debt type, frequency, unit and variable. Thus, taking a look at `CodeLists` element suggests that a possible key would be `FIN+BEL.AMT+GRS+NET.A.USD.3` which requests total Finnish and Belgian government debt flows and stocks in US Dollars at annual frequency. Here's the [full link to the `XML` file](http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/GOV_DEBT/FIN+BEL.AMT+GRS+NET.A.USD.3). It turns that only `AMT` (outstanding amounts) data is provided.
+In particular, we are interested in two elements: `CodeLists` and `Dimension`. `Dimension` element explains in what order and how key for queries is constructed while `CodeLists` provides possible values for query elements. In this particular case, `Dimension` elements indicates that a key is constructed as follows: country, debt type, frequency, unit and variable. Thus, taking a look at `CodeLists` element suggests that a possible key would be `FIN+BEL.AMT+GRS+NET.A.USD.3` which requests total Finnish and Belgian government debt flows and stocks in US Dollars at annual frequency. Here's the [full link to the `XML` file](http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/GOV_DEBT/FIN+BEL.AMT+GRS+NET.A.USD.3). It turns out that only `AMT` (outstanding amounts) data is provided.
 
 ##### SDMX and `R`
 
@@ -59,7 +59,7 @@ xml_data <- readSDMX(url)
 data <- as.data.frame(xml_data)
 
 library(reshape2)
-dcast(data, date ~ COU+DTYPE, value.var="obsValue")
+dcast(data, obsTime ~ COU+DTYP, value.var="obsValue")
 ```
 
 Dealing with public data has never been as fun. `SDMX` is a great protocol for easily constructing and maintaining public data you are interested in. No more random `Excel` or `csv` files. Amen.
