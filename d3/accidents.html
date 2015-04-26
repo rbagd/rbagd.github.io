@@ -29,25 +29,16 @@ div.tooltip {
 
 </style>
 <body>
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://d3js.org/colorbrewer.v1.min.js"></script>
 <script>
 
-// Computing averages
-function sumAvg(x) {
-  var sum = 0
-  for (var i = 0; i < x.length; i++) {
-    sum += x[i]
-  }
-  var avg = sum / x.length
-  return [sum, avg]
-}
-
-//Map dimensions (in pixels)
+// Map dimensions (in pixels)
 var width = 600,
     height = 491;
 
-//Map projection
+// Map projection
 var projection = d3.geo.conicEqualArea()
     .scale(13350.751105228142)
     .center([4.665916438969519,50.640148972830985]) //projection center
@@ -55,74 +46,75 @@ var projection = d3.geo.conicEqualArea()
     .rotate([355.33408356103047]) //rotation for conic projection
     .translate([1013.5934263776184,191.90471815722012]) //translate to center the map in view
 
-//Generate paths based on projection
+// Generate paths based on projection
 var path = d3.geo.path()
     .projection(projection);
 
-//Create an SVG
+// Create an SVG
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-//Group for the map features
+// Group for the map features
 var features = svg.append("g")
     .attr("class","features");
 
-//Create a tooltip, hidden at the start
+// Create a tooltip, hidden at the start
 var tooltip = d3.select("body").append("div").attr("class","tooltip");
 
-//Keeps track of currently zoomed feature
+// Keeps track of currently zoomed feature
 var centered;
 
-var wallonnie = ['Hainaut', 'Liege', 'Luxembourg', 'Walloon Brabant', 'Namur']
 
-//function getColor(d) {
-//  if (wallonnie.indexOf(d.properties.NAME_1) != -1)  {
-//    return "#dcd";
-//  }else if (d.properties.NAME_1 == 'Brussels') {
-//    return "darkgreen";
-//  }else {
-//    return "steelblue";
-//  }
-//}
+d3.json("data/belgium/final.json",function(error,geodata) {
+  if (error) return console.log(error); // unknown error, check the console
 
-function getColor(d) {
-  nat_avg = 3.718618;
-  if ((d.properties.y2013/d.properties.p2013)*1000 < nat_avg) {
-    return "green"
-  }else if ((d.properties.y2013/d.properties.p2013)*1000 > nat_avg) {
-    return "#600000"
-  }else {
-    return "steelblue"
+//  console.log(geodata.objects.collection.geometries[0].properties.y2013)
+
+  var accidents = 0;
+  var pop = 0
+  var temp;
+  for (var i=0; i < geodata.objects.collection.geometries.length; i++ ) {
+    temp = geodata.objects.collection.geometries;
+    pop = pop + temp[i].properties.p2013;
+    accidents = accidents + temp[i].properties.y2013;
+  };
+  var nat_avg = 1000*(accidents / pop)
+
+  var pickRedColor = d3.scale.quantize().domain([(nat_avg-1), 6]).range(colorbrewer.Reds[4]);
+  var pickGreenColor = d3.scale.quantize().domain([-(nat_avg+1),-2.5]).range(colorbrewer.Greens[4]);
+
+  function getColor(d) {
+    var x = (d.properties.y2013/d.properties.p2013)*1000;
+    if (x < nat_avg) {
+      return pickGreenColor(-x);
+    } else {
+    return pickRedColor(x);
+    }
   }
-}
 
-d3.json("data.json",function(error,geodata) {
-  if (error) return console.log(error); //unknown error, check the console
-
-//  console.log(topojson.feature(geodata, geodata.objects.collection).features);
-//  var nat_avg = 10
-  //Create a path for each map feature in the data
   features.selectAll("path")
-    .data(topojson.feature(geodata,geodata.objects.collection).features) //generate features from TopoJSON
+    .data(topojson.feature(geodata,geodata.objects.collection).features)
     .enter()
     .append("path")
     .attr("d",path)
-    .style("fill", getColor)
-    .on("mouseover", function(d) { showTooltip(d); d3.select(this).attr("r",10).style("fill", "steelblue"); })
+    .style("fill", getColor) //function(d) { return pickColor(d.properties.y2013); }) // getColor)
+    .on("mouseover", function(d) {
+      showTooltip(d); d3.select(this).attr("r",10).style("fill", "steelblue"); })
     .on("mousemove", moveTooltip)
-    .on("mouseout", function(d) { hideTooltip(); d3.select(this).attr("r",10).style("fill", getColor); })
- //   .on("click",clicked);
+    .on("mouseout", function(d) {
+      hideTooltip(); d3.select(this).attr("r",10).style("fill", getColor); })
+    .on("click",clicked);
+
+  document.getElementById("natavg").innerHTML = "Average number of accidents in Belgium: "
+    + 1/100*Math.round(nat_avg*100).toString();
 
 });
 
 // Zoom to feature on click
 function clicked(d,i) {
-
-  //Add any other onClick events here
-
+// Add any other onClick events here
   var x, y, k;
-
   if (d && centered !== d) {
     // Compute the new map center and scale to zoom to
     var centroid = path.centroid(d);
@@ -136,30 +128,28 @@ function clicked(d,i) {
     y = height / 2;
     k = 1;
     centered = null;
-  }
+  };
 
-  // Highlight the new feature
+// Highlight the new feature
   features.selectAll("path")
-      .classed("highlighted",function(d) {
-          return d === centered;
-      })
-      .style("stroke-width", 1 / k + "px"); // Keep the border width constant
+    .classed("highlighted",function(d) {
+      return d === centered;
+    })
+    .style("stroke-width", 1 / k + "px"); // Keep the border width constant
+    // Zoom and re-center the map
+    // Uncomment .transition() and .duration() to make zoom gradual
+    features
+    // .transition()
+    // .duration(500)
+    .attr("transform","translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
+};
 
-  //Zoom and re-center the map
-  //Uncomment .transition() and .duration() to make zoom gradual
-  features
-      //.transition()
-      //.duration(500)
-      .attr("transform","translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
-}
-
-
-//Position of the tooltip relative to the cursor
+// Position of the tooltip relative to the cursor
 var tooltipOffset = {x: 5, y: -25};
 
-//Create a tooltip, hidden at the start
+// Create a tooltip, hidden at the start
 function showTooltip(d) {
-  
+
   moveTooltip();
 
   tooltip.style("display","block")
@@ -167,15 +157,24 @@ function showTooltip(d) {
         "<br> Acc. par 1000 hab.: " + Math.round(100*1000*d.properties.y2013/d.properties.p2013)/100);
 }
 
-//Move the tooltip to track the mouse
+// Move the tooltip to track the mouse
 function moveTooltip() {
   tooltip.style("top",(d3.event.pageY+tooltipOffset.y)+"px")
       .style("left",(d3.event.pageX+tooltipOffset.x)+"px");
 }
 
-//Create a tooltip, hidden at the start
+// Create a tooltip, hidden at the start
 function hideTooltip() {
   tooltip.style("display","none");
 }
+
+
 </script>
 
+<div id="natavg"> </div>
+
+
+</body>
+
+
+</html>
