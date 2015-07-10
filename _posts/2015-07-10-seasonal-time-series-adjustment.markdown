@@ -49,6 +49,7 @@ Some advantages of `seasonal` over `x12`:
 * `x12` only provides coefficient estimate table for external regressors, not `AR` or `MA` coefficients contrary to `seasonal`. Unless I am missing something, `ARMA` coefficients aren't part of the final `x12` estimated fit object.
 
 Some advantages of `x12` over `seasonal`:
+
 * `summary` method in `x12` also provides `M`-quality statistics for the model which is a nice guidance during modelling procedure. These statistics are however only available for `X11` method. If you estimate an `X11` model with `seasonal`, those statistics can only for now be read in the output file. It's also quite nice that `x12` provides a possibility for an extended summary output with `fullSummary=TRUE` option.
 * plotting capabilities are quite similar, though `x12` provides a nice plot with original series combined with forecasts and their confidence band.
 * `x12` takes an `S4`-type `OOP` approach to model estimation. While it's not as intuitive as `seasonal`, it gets quite useful if you have to deal with many series sharing similar parametrization. `x12` would also allow easier parallelization via `x12Batch` class. It's more a different approach rather than a (dis)advantage.
