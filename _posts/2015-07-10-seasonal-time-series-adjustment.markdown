@@ -34,11 +34,11 @@ seas(AirPassengers, regression.variables="seasonal")
 
 library(x12)
 x13path('some_dir/x13as')
-x12(AirPassengers, setP(new("x12Parameter",
-                        list(regression.variables="seasonal"))))
+x12(AirPassengers, setP(new("x12Parameter"),
+                        list(regression.variables="seasonal")))
 {% endhighlight %}
 
-Note that the two snippets above will give different outputs due to differences in default settings. For identical results, add `outlier=NULL, regression.aictest=NULL, x11=''` options within `seas` function.
+Note that the two snippets above will give different outputs due to differences in default settings. For identical results, add `regression.aictest=NULL, x11=''` options within `seas` function.
 
 Some advantages of `seasonal` over `x12`:
 
