@@ -10,9 +10,10 @@ Time series data, particularly in economics, may and does often contain seasonal
 A few methods emerged over time to help statisticians adjust time series for seasonality, of which `X11` became the dominant one, notably due to its relative simplicity.
 
 Here is a small dictionary:
-  * `X11`: in short, seasonal adjustment is achieved through linear `ARMA`-like filtering and outlier detection
-  * `TRAMO`: time series regression with ARIMA noise, missing observations and outliers
-  * `SEATS`: signal extraction in ARIMA time series
+
+* `X11`: in short, seasonal adjustment is achieved through linear `ARMA`-like filtering and outlier detection
+* `TRAMO`: time series regression with ARIMA noise, missing observations and outliers
+* `SEATS`: signal extraction in ARIMA time series
 
 Some more discussion on `X11` and seasonal adjustment is available [here][gomezmaravall]. More on filters can be found [here][filterinfo]. Information on `TRAMO/SEATS` is available on its [website][tramoseats].
 
@@ -40,16 +41,19 @@ x12(AirPassengers, setP(new("x12Parameter",
 Note that the two snippets above will give different outputs due to differences in default settings. For identical results, add `outlier=NULL, regression.aictest=NULL, x11=''` options within `seas` function.
 
 Some advantages of `seasonal` over `x12`:
-  * `seasonal` supports both `X11` and `SEATS` methods. `x12` does not support `SEATS` yet.
-  * Although it is a question of taste, `seasonal` is probably better polished visually, e.g. graphical outlier selection is very neat as well as interactive `shiny`-based model discovery.
-  * In case of external regressors, `seasonal` does not require writing those to a file as `x12` does. It's a minor inconvenience though.
-  * `seasonal` has a function `genhol` for easier generation of holiday-related seasonal effects. This simple function is really great.
-  * `x12` only provides coefficient estimate table for external regressors, not `AR` or `MA` coefficients contrary to `seasonal`. Unless I am missing something, `ARMA` coefficients aren't part of the final `x12` estimated fit object.
+
+* `seasonal` supports both `X11` and `SEATS` methods. `x12` does not support `SEATS` yet.
+* Although it is a question of taste, `seasonal` is probably better polished visually, e.g. graphical outlier selection is very neat as well as interactive `shiny`-based model discovery.
+* In case of external regressors, `seasonal` does not require writing those to a file as `x12` does. It's a minor inconvenience though.
+* `seasonal` has a function `genhol` for easier generation of holiday-related seasonal effects. This simple function is really great.
+* `x12` only provides coefficient estimate table for external regressors, not `AR` or `MA` coefficients contrary to `seasonal`. Unless I am missing something, `ARMA` coefficients aren't part of the final `x12` estimated fit object.
 
 Some advantages of `x12` over `seasonal`:
-  * `summary` method in `x12` also provides `M`-quality statistics for the model which is a nice guidance during modelling procedure. These statistics are however only available for `X11` method. If you estimate an `X11` model with `seasonal`, those statistics can only for now be read in the output file. It's also quite nice that `x12` provides a possibility for an extended summary output with `fullSummary=TRUE` option.
-  * plotting capabilities are quite similar, though `x12` provides a nice plot with original series combined with forecasts and their confidence band.
-  * `x12` takes an `S4`-type `OOP` approach to model estimation. While it's not as intuitive as `seasonal`, it gets quite useful if you have to deal with many series sharing similar parametrization. `x12` would also allow easier parallelization via `x12Batch` class. It's more a different approach rather than a (dis)advantage.
+* `summary` method in `x12` also provides `M`-quality statistics for the model which is a nice guidance during modelling procedure. These statistics are however only available for `X11` method. If you estimate an `X11` model with `seasonal`, those statistics can only for now be read in the output file. It's also quite nice that `x12` provides a possibility for an extended summary output with `fullSummary=TRUE` option.
+* plotting capabilities are quite similar, though `x12` provides a nice plot with original series combined with forecasts and their confidence band.
+* `x12` takes an `S4`-type `OOP` approach to model estimation. While it's not as intuitive as `seasonal`, it gets quite useful if you have to deal with many series sharing similar parametrization. `x12` would also allow easier parallelization via `x12Batch` class. It's more a different approach rather than a (dis)advantage.
+
+Feel free to test everything I have discussed to find what suits your workflow best.
 
 [gomezmaravall]: http://www.bde.es/f/webbde/SES/servicio/software/tramo/sasex.pdf
 [filterinfo]: http://www.abs.gov.au/websitedbs/d3310114.nsf/51c9a3d36edfd0dfca256acb00118404/5fc845406def2c3dca256ce100188f8e!OpenDocument
