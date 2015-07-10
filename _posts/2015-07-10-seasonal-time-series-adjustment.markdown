@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Seasonal time series adjustment with X-13ARIMA-SEATS in R"
-date:   2015-07-15 16:00:00
+date:   2015-07-10 15:30:00
 categories: r statistics 
 ---
 
