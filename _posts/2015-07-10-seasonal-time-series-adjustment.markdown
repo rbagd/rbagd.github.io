@@ -17,7 +17,7 @@ Here is a small dictionary:
 
 Some more discussion on `X11` and seasonal adjustment is available [here][gomezmaravall]. More on filters can be found [here][filterinfo]. Information on `TRAMO/SEATS` is available on its [website][tramoseats].
 
-Currently, there are two main software packages implementing above described methods. Others also exist but are likely to be not free. [X-13ARIMA-SEATS][x13] maintained by U.S. Census Bureau is based on `X11` method and its improvements but also implements `SEATS`. Alternatively, [`JDemetra+`][demetra] maintained by National Bank of Belgium and Eurostat provides a `Java`-based implementation for all of the above methods. `JDemetra+` is well done, cross-platform and provides plenty of point and click options to work with your time series, although documentation is quite seriously lacking. On the other hand, `X-13ARIMA-SEATS` does not come with a `GUI` unless you are on `Windows` but has an excellent [reference manual][x13manual]. An advantage for the latter is also the possibility to remain within the `R` universe.
+Currently, there are two main software packages implementing above described methods. Others also exist but are likely to be not free. [X-13ARIMA-SEATS][x13] maintained by U.S. Census Bureau is based on `X11` method and its improvements but also implements `SEATS`. Alternatively, [`JDemetra+`][demetra] maintained by National Bank of Belgium and Eurostat provides a `Java`-based implementation for all the above methods. `JDemetra+` is well done, cross-platform and provides plenty of point and click options to work with your time series, although documentation is quite seriously lacking. On the other hand, `X-13ARIMA-SEATS` does not come with a `GUI` unless you are on `Windows` but has an excellent [reference manual][x13manual]. An advantage for the latter is also the possibility to remain within the `R` universe.
 
 In `R`, two packages provide an interface to `X-13ARIMA-SEATS` software: [`seasonal`][cranseasonal] and [`x12`][cranx12]. Additionally, the latter has a GUI via [`x12GUI`][cranx12gui] package providing some button clicking options.
 
@@ -25,15 +25,17 @@ So just to reiterate and eliminate all confusion: `X11` is a seasonal adjustment
 
 Both `R` packages can be found to be useful in general. `seasonal` uses `SEATS` method as default, while `x12` supports only `X11` method. Both packages also have the same workflow: first, rewrite the user-defined model in a `.spc` file understood by `X13-ARIMA-SEATS` binary, run the binary, read the `.out` file and parse it back into `R`. Both also aim to implement all or most of the options available in the true `X-13ARIMA-SEATS` software.
 
-For an occasional use, `seasonal` is probably preferable as its more intuitive and will probably easier to use. In both cases, `X-13ARIMA-SEATS` binary has to be downloaded manually and its path set up as explained in documentation in `X13_PATH` is set up as explained in the vignette of the package.
+For an occasional use, `seasonal` is probably preferable as its more intuitive and will probably easier to use. In both cases, `X-13ARIMA-SEATS` binary has to be downloaded manually and its path set up as explained in documentation of each of the packages.
+
+Here is a small example of a basic modelling option with dummy variables for each month, i.e. fixed seasonal effects.
 
 {% highlight r %}
 library(seasonal)
-Sys.setenv(X13_PATH = 'some_dir')
+Sys.setenv(X13_PATH = 'dir_to_binary')
 seas(AirPassengers, regression.variables="seasonal")
 
 library(x12)
-x13path('some_dir/x13as')
+x13path('dir_to_binary/x13as')
 x12(AirPassengers, setP(new("x12Parameter"),
                         list(regression.variables="seasonal")))
 {% endhighlight %}
@@ -43,16 +45,16 @@ Note that the two snippets above will give different outputs due to differences 
 Some advantages of `seasonal` over `x12`:
 
 * `seasonal` supports both `X11` and `SEATS` methods. `x12` does not support `SEATS` yet.
-* Although it is a question of taste, `seasonal` is probably better polished visually, e.g. graphical outlier selection is very neat as well as interactive `shiny`-based model discovery.
+* Although it is a question of taste, `seasonal` is probably better polished visually, e.g. graphical outlier selection is very neat and so is interactive `shiny`-based model discovery.
 * In case of external regressors, `seasonal` does not require writing those to a file as `x12` does. It's a minor inconvenience though.
-* `seasonal` has a function `genhol` for easier generation of holiday-related seasonal effects. This simple function is really great.
+* `seasonal` has a function `genhol` for easier generation of holiday-related seasonal effects. This simple function is really great if you need to use it.
 * `x12` only provides coefficient estimate table for external regressors, not `AR` or `MA` coefficients contrary to `seasonal`. Unless I am missing something, `ARMA` coefficients aren't part of the final `x12` estimated fit object.
 
 Some advantages of `x12` over `seasonal`:
 
 * `summary` method in `x12` also provides `M`-quality statistics for the model which is a nice guidance during modelling procedure. These statistics are however only available for `X11` method. If you estimate an `X11` model with `seasonal`, those statistics can only for now be read in the output file. It's also quite nice that `x12` provides a possibility for an extended summary output with `fullSummary=TRUE` option.
 * plotting capabilities are quite similar, though `x12` provides a nice plot with original series combined with forecasts and their confidence band.
-* `x12` takes an `S4`-type `OOP` approach to model estimation. While it's not as intuitive as `seasonal`, it gets quite useful if you have to deal with many series sharing similar parametrization. `x12` would also allow easier parallelization via `x12Batch` class. It's more a different approach rather than a (dis)advantage.
+* `x12` takes an `S4`-type `OOP` approach to model estimation. While it's not as intuitive as `seasonal`, it gets quite useful if you have to deal with many series sharing similar parametrization. `x12` would also allow easier parallelization via `x12Batch` class. It's more a difference in approach rather than a (dis)advantage.
 
 Feel free to test everything I have discussed to find what suits your workflow best.
 
