@@ -112,6 +112,12 @@ a:visited { color: #7d38c1; }
   color: #8085C1;
 }
 
+.footer .links {
+  float: right;
+  margin-top: 1em;
+  margin-right: 1em;
+}
+
 .footer .rss {
   margin-top: 1.1em;
   margin-right: -.2em;
