@@ -4,7 +4,7 @@ title: about
 format: markdown
 ---
 
-Currently, I work at [Open Analytics](https://www.openanalytics.eu/). I am also finishing my graduate econometrics studies in Université catholique de Louvain, Belgium.
+Currently, I work as a data scientist at [Proximus](https://www.proximus.be/), a major Belgian telecommunications company.
 
 I am a free and open-source software enthousiast.
 
